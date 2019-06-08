@@ -151,18 +151,45 @@ impl UserDirs {
 mod tests {
     use super::*;
 
+    fn test_xdg() {
+        let home_dir = home_dir().unwrap();
+        let config_env = env::var_os("XDG_CONFIG_HOME");
+
+        env::set_var("XDG_CONFIG_HOME", "");
+        let app_dirs = AppDirs::new::<PathBuf>(None, AppUI::CommandLine).unwrap();
+        assert!(app_dirs.config_dir == home_dir.join(".config"));
+
+        env::set_var("XDG_CONFIG_HOME", "/home/cjbassi/foo");
+        let app_dirs = AppDirs::new(Some("bar"), AppUI::CommandLine).unwrap();
+        assert!(app_dirs.config_dir == home_dir.join("/home/cjbassi/foo/bar"));
+
+        if let Some(config_env) = config_env {
+            env::set_var("XDG_CONFIG_HOME", config_env);
+        }
+    }
+
     #[test]
     fn test_config_dir() {
-        let config_dir = home_dir().unwrap().join(".config");
-        env::set_var("XDG_CONFIG_HOME", &config_dir);
-        let app_dirs = AppDirs::new::<PathBuf>(None, AppUI::CommandLine).unwrap();
-
         if cfg!(target_os = "macos") {
-            assert!(app_dirs.config_dir == config_dir);
+            let home_dir = home_dir().unwrap();
+            let app_dirs = AppDirs::new(Some("foo"), AppUI::Graphical).unwrap();
+            assert_eq!(
+                app_dirs.config_dir,
+                home_dir
+                    .join("Library")
+                    .join("Application Support")
+                    .join("foo"),
+            );
+            test_xdg();
         } else if cfg!(target_os = "windows") {
-            assert!(app_dirs.config_dir == config_dir);
+            let home_dir = home_dir().unwrap();
+            let app_dirs = AppDirs::new(Some("foo"), AppUI::Graphical).unwrap();
+            assert_eq!(
+                app_dirs.config_dir,
+                home_dir.join("AppData").join("Roaming").join("foo")
+            );
         } else {
-            assert!(app_dirs.config_dir == config_dir);
+            test_xdg();
         }
     }
 
@@ -170,13 +197,6 @@ mod tests {
     fn test_music_dir() {
         let music_dir = home_dir().unwrap().join("Music");
         let user_dirs = UserDirs::new().unwrap();
-
-        if cfg!(target_os = "macos") {
-            assert!(user_dirs.music_dir == music_dir);
-        } else if cfg!(target_os = "windows") {
-            assert!(user_dirs.music_dir == music_dir);
-        } else {
-            assert!(user_dirs.music_dir == music_dir);
-        }
+        assert!(user_dirs.music_dir == music_dir);
     }
 }
