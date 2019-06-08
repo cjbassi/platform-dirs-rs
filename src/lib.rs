@@ -9,6 +9,7 @@ pub enum AppUI {
     Graphical,
 }
 
+#[derive(Clone, Debug)]
 pub struct AppDirs {
     pub cache_dir: PathBuf,
     pub config_dir: PathBuf,
@@ -16,6 +17,7 @@ pub struct AppDirs {
     pub state_dir: PathBuf,
 }
 
+#[derive(Clone, Debug)]
 pub struct UserDirs {
     pub desktop_dir: PathBuf,
     pub document_dir: PathBuf,
