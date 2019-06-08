@@ -45,12 +45,12 @@ impl AppDirs {
     {
         if cfg!(target_os = "macos") && app_ui == AppUI::Graphical {
             if home_dir().is_some() {
-                let cache_dir = dirs::cache_dir().unwrap();
-                let data_dir = dirs::data_dir().unwrap();
+                let mut cache_dir = dirs::cache_dir().unwrap();
+                let mut data_dir = dirs::data_dir().unwrap();
 
                 if let Some(prefix) = prefix {
-                    cache_dir.join(&prefix);
-                    data_dir.join(&prefix);
+                    cache_dir.push(&prefix);
+                    data_dir.push(&prefix);
                 }
 
                 let config_dir = data_dir.clone();
@@ -69,14 +69,14 @@ impl AppDirs {
             if let (Some(_home_dir), Some(data_dir), Some(data_local_dir)) =
                 (home_dir(), dirs::data_dir(), dirs::data_local_dir())
             {
-                let cache_dir = data_local_dir.clone();
-                let config_dir = data_dir.clone();
-                let data_dir = data_local_dir.clone();
+                let mut cache_dir = data_local_dir.clone();
+                let mut config_dir = data_dir.clone();
+                let mut data_dir = data_local_dir.clone();
 
                 if let Some(prefix) = prefix {
-                    cache_dir.join(&prefix);
-                    config_dir.join(&prefix);
-                    data_dir.join(&prefix);
+                    cache_dir.push(&prefix);
+                    config_dir.push(&prefix);
+                    data_dir.push(&prefix);
                 }
 
                 let state_dir = data_dir.clone();
@@ -91,24 +91,24 @@ impl AppDirs {
                 None
             }
         } else if let Some(home_dir) = home_dir() {
-            let cache_dir = env::var_os("XDG_CACHE_HOME")
+            let mut cache_dir = env::var_os("XDG_CACHE_HOME")
                 .and_then(is_absolute_path)
                 .unwrap_or_else(|| home_dir.join(".cache"));
-            let config_dir = env::var_os("XDG_CONFIG_HOME")
+            let mut config_dir = env::var_os("XDG_CONFIG_HOME")
                 .and_then(is_absolute_path)
                 .unwrap_or_else(|| home_dir.join(".config"));
-            let data_dir = env::var_os("XDG_DATA_HOME")
+            let mut data_dir = env::var_os("XDG_DATA_HOME")
                 .and_then(is_absolute_path)
                 .unwrap_or_else(|| home_dir.join(".local/share"));
-            let state_dir = env::var_os("XDG_STATE_HOME")
+            let mut state_dir = env::var_os("XDG_STATE_HOME")
                 .and_then(is_absolute_path)
                 .unwrap_or_else(|| home_dir.join(".local/state"));
 
             if let Some(prefix) = prefix {
-                cache_dir.join(&prefix);
-                config_dir.join(&prefix);
-                data_dir.join(&prefix);
-                state_dir.join(&prefix);
+                cache_dir.push(&prefix);
+                config_dir.push(&prefix);
+                data_dir.push(&prefix);
+                state_dir.push(&prefix);
             }
 
             Some(AppDirs {
