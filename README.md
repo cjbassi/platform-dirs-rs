@@ -11,7 +11,7 @@ Allows for specifying if an application is CLI or GUI based, since on macOS, CLI
 Uses the following standards:
 - Unix (excluding macOS GUI apps): [XDG Base Directory] and [XDG User Directory]
 - macOS GUI apps: [Standard Directories]
-- Windows: [Known Folder] API
+- Windows: [Known Folder]
 
 [XDG Base Directory]: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
 [XDG user directory]: https://www.freedesktop.org/wiki/Software/xdg-user-dirs/
@@ -38,23 +38,18 @@ use std::path::PathBuf;
 use platform_dirs::{AppDirs, AppUI, UserDirs};
 
 fn main() {
-    let app_dirs = AppDirs::new(
-        Some("program-name"),
-        AppUI::CommandLine
-    ).unwrap();
+    let app_dirs = AppDirs::new(Some("program-name"), AppUI::CommandLine).unwrap();
+
     fs::create_dir_all(&app_dirs.config_dir).unwrap();
+
     let config_file_path = app_dirs.config_dir.join("config-file");
     let f = if config_file_path.exists() {
         File::open(config_file_path).unwrap()
     } else {
         File::create(config_file_path).unwrap()
     };
-    // read or write file
 
-    let app_dirs = AppDirs::new::<PathBuf>(
-        None,
-        AppUI::Graphical
-    ).unwrap();
+    let app_dirs = AppDirs::new::<PathBuf>(None, AppUI::Graphical).unwrap();
     let user_dirs = UserDirs::new().unwrap();
     let home_dir = platform_dirs::home_dir().unwrap();
 }
@@ -62,15 +57,18 @@ fn main() {
 
 ## Path list
 
-AppDirs    | Windows                                                | Unix (excluding macOS GUI apps)          | macOS (GUI apps)
+### AppDirs
+
+Directory  | Windows                                                | Unix (excluding macOS GUI apps)          | macOS (GUI apps)
 -----------|--------------------------------------------------------|------------------------------------------|------------------------------------
 cache_dir  | `%LOCALAPPDATA%` (`C:\Users\%USERNAME%\AppData\Local`) | `$XDG_CACHE_HOME` (`$HOME/.cache`)       | `$HOME/Library/Caches`
 config_dir | `%APPDATA%` (`C:\Users\%USERNAME%\AppData\Roaming`)    | `$XDG_CONFIG_HOME` (`$HOME/.config`)     | `$HOME/Library/Application Support`
 data_dir   | `%LOCALAPPDATA%` (`C:\Users\%USERNAME%\AppData\Local`) | `$XDG_DATA_HOME` (`$HOME/.local/share`)  | `$HOME/Library/Application Support`
 state_dir  | `%LOCALAPPDATA%` (`C:\Users\%USERNAME%\AppData\Local`) | `$XDG_STATE_HOME` (`$HOME/.local/state`) | `$HOME/Library/Application Support`
 
+### UserDirs
 
-UserDirs     | Windows                                                   | Unix (excluding macOS GUI apps)         | macOS (GUI apps)
+Directory    | Windows                                                   | Unix (excluding macOS GUI apps)         | macOS (GUI apps)
 -------------|-----------------------------------------------------------|-----------------------------------------|------------------
 desktop_dir  | `{FOLDERID_Desktop}`  (`C:\Users\%USERNAME%\Desktop`)     | `XDG_DESKTOP_DIR` (`$HOME/Desktop`)     | `$HOME/Desktop`
 document_dir | `{FOLDERID_Documents}`  (`C:\Users\%USERNAME%\Documents`) | `XDG_DOCUMENTS_DIR` (`$HOME/Documents`) | `$HOME/Documents`
