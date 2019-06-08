@@ -109,7 +109,7 @@ state_dir  | `%LOCALAPPDATA%` (`C:\Users\%USERNAME%\AppData\Local`) | `$XDG_STAT
 
 ### UserDirs
 
-Directory    | Windows                                                   | Unix (excluding macOS GUI apps)         | macOS (GUI apps)
+Directory    | Windows                                                   | Unix (excluding macOS)                  | macOS
 -------------|-----------------------------------------------------------|-----------------------------------------|------------------
 desktop_dir  | `{FOLDERID_Desktop}`  (`C:\Users\%USERNAME%\Desktop`)     | `XDG_DESKTOP_DIR` (`$HOME/Desktop`)     | `$HOME/Desktop`
 document_dir | `{FOLDERID_Documents}`  (`C:\Users\%USERNAME%\Documents`) | `XDG_DOCUMENTS_DIR` (`$HOME/Documents`) | `$HOME/Documents`
