@@ -9,12 +9,14 @@ Note that the directory paths are not guaranteed to exist.
 Allows for specifying if an application is CLI or GUI based, since on macOS, CLI applications are expected to conform to the XDG spec, while GUI applications are expected to conform to the [Standard Directories] guidelines.
 
 Uses the following standards:
-- Unix (excluding macOS GUI apps): [XDG Base Directory] and [XDG User Directory]
-- macOS GUI apps: [Standard Directories]
+- Unix (excluding macOS): [XDG Base Directories] and [XDG User Directories]
+- macOS
+    - GUI apps: [Standard Directories]
+    - CLI apps: [Standard Directories] for user directories and [XDG Base Directories] for application directories
 - Windows: [Known Folder]
 
-[XDG Base Directory]: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
-[XDG user directory]: https://www.freedesktop.org/wiki/Software/xdg-user-dirs/
+[XDG Base Directories]: https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
+[XDG user directories]: https://www.freedesktop.org/wiki/Software/xdg-user-dirs/
 [Known Folder]: https://msdn.microsoft.com/en-us/library/windows/desktop/dd378457.aspx
 [Standard Directories]: https://developer.apple.com/library/content/documentation/FileManagement/Conceptual/FileSystemProgrammingGuide/FileSystemOverview/FileSystemOverview.html#//apple_ref/doc/uid/TP40010672-CH2-SW6
 
@@ -118,3 +120,17 @@ music_dir    | `{FOLDERID_Music}`  (`C:\Users\%USERNAME%\Music`)         | `XDG_
 picture_dir  | `{FOLDERID_Pictures}` (`C:\Users\%USERNAME%\Pictures`)    | `XDG_PICTURES_DIR` (`$HOME/Pictures`)   | `$HOME/Pictures`
 public_dir   | `{FOLDERID_Public}`  (`C:\Users\%USERNAME%\Public`)       | `XDG_PUBLICSHARE_DIR` (`$HOME/Public`)  | `$HOME/Public`
 video_dir    | `{FOLDERID_Videos}`  (`C:\Users\%USERNAME%\Videos`)       | `XDG_VIDEOS_DIR` (`$HOME/Videos`)       | `$HOME/Movies`
+
+## Comparisons
+
+platform-dirs differs from [dirs-rs](https://github.com/soc/dirs-rs) and [directories-rs](https://github.com/soc/directories-rs) in several ways:
+
+- adds `state_dir` to the list of app dirs, used (unofficially thus far) for application state as defined [here](https://wiki.debian.org/XDGBaseDirectorySpecification) at the bottom
+- only includes directories that are cross platform (no `runtime_dir`, `executable_dir`, etc)
+- returns default user dirs on XDG if the entry is not set in `~/.config/user-dirs.dirs` instead of returning `None`
+- provides a simpler API than directories-rs
+- allow for using XDG on macOS for cli apps
+- changes some of the app directory path locations on Windows and macOS
+    - `Library/Preferences` -> `Library/Application Support`
+        - `Library/Preferences` is more so used for macOS unique plist preferences: [info](https://www.reddit.com/r/rust/comments/8hbzyx/can_people_here_give_the_dirs_and_directories/dyj4qtk/)
+    - remove `data_local_dir`
