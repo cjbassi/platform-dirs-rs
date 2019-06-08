@@ -14,3 +14,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > - **Security**: in case of vulnerabilities.
 
 ## [Unreleased]
+
+## [0.1.1] - 2019-06-08
+
+### Fixed
+
+- Fixed app name prefix for AppDirs
+
+## [0.1.0] - 2019-06-08
+
+Initial release
+
+[Unreleased]: https://github.com/cjbassi/platform-dirs-rs/compare/0.1.1...HEAD
+[0.1.1]: https://github.com/cjbassi/platform-dirs-rs/compare/0.1.0...0.1.1
+[0.1.0]: https://github.com/cjbassi/platform-dirs-rs/compare/4afc9b7218db1f2847203951ff3e1493b3d9ef38...0.1.0
