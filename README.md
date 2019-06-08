@@ -1,5 +1,7 @@
 # platform-dirs-rs
 
+[![crates.io](https://img.shields.io/crates/v/platform-dirs.svg)](https://crates.io/crates/platform-dirs)
+
 A small Rust library for obtaining platform dependant directory paths for application and user directories.
 
 Note that the directory paths are not guaranteed to exist.
