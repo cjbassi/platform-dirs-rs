@@ -1,6 +1,6 @@
 [package]
 name = "platform-dirs"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Caleb Bassi <calebjbassi@gmail.com>"]
 description = "A small Rust library for obtaining platform dependant directory paths for application and user directories."
 readme = "README.md"

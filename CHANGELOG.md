@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2019-06-08
+
 ### Added
 
 - Derive Clone and Debug for AppDirs and UserDirs
@@ -29,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial release
 
-[Unreleased]: https://github.com/cjbassi/platform-dirs-rs/compare/0.1.1...HEAD
+[Unreleased]: https://github.com/cjbassi/platform-dirs-rs/compare/0.1.2...HEAD
+[0.1.2]: https://github.com/cjbassi/platform-dirs-rs/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/cjbassi/platform-dirs-rs/compare/0.1.0...0.1.1
 [0.1.0]: https://github.com/cjbassi/platform-dirs-rs/compare/4afc9b7218db1f2847203951ff3e1493b3d9ef38...0.1.0
