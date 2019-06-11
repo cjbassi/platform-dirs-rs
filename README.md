@@ -4,7 +4,7 @@
 
 A small Rust library for obtaining platform dependant directory paths for application and user directories.
 
-Note that the directory paths are not guaranteed to exist.
+Note that the given directory paths are not guaranteed to exist.
 
 Allows for specifying if an application is CLI or GUI based, since on macOS, CLI applications are expected to conform to the XDG spec, while GUI applications are expected to conform to the [Standard Directories] guidelines.
 
@@ -19,8 +19,6 @@ Uses the following standards:
 [XDG user directories]: https://www.freedesktop.org/wiki/Software/xdg-user-dirs/
 [Known Folder]: https://msdn.microsoft.com/en-us/library/windows/desktop/dd378457.aspx
 [Standard Directories]: https://developer.apple.com/library/content/documentation/FileManagement/Conceptual/FileSystemProgrammingGuide/FileSystemOverview/FileSystemOverview.html#//apple_ref/doc/uid/TP40010672-CH2-SW6
-
-The API is still being flushed out, so feel free to PR any breaking changes or additions.
 
 ## Installation
 
@@ -125,12 +123,19 @@ video_dir    | `{FOLDERID_Videos}`  (`C:\Users\%USERNAME%\Videos`)       | `XDG_
 
 platform-dirs differs from [dirs-rs](https://github.com/soc/dirs-rs) and [directories-rs](https://github.com/soc/directories-rs) in several ways:
 
-- adds `state_dir` to the list of app dirs, used (unofficially thus far) for application state as defined [here](https://wiki.debian.org/XDGBaseDirectorySpecification) at the bottom
-- only includes directories that are cross platform (no `runtime_dir`, `executable_dir`, etc)
-- returns default user dirs on XDG if the entry is not set in `~/.config/user-dirs.dirs` instead of returning `None`
+- allows for using the XDG spec on macOS for cli apps
+- changes the config directory on macOS from `Library/Preferences` to `Library/Application Support`
+    - `Library/Preferences` is supposed to be used for macOS unique plist preferences: [info](https://www.reddit.com/r/rust/comments/8hbzyx/can_people_here_give_the_dirs_and_directories/dyj4qtk/)
+- only includes directories that are cross platform
+    - AppDirs:
+        - removes `data_local_dir`
+    - UserDirs:
+        - removes `runtime_dir`, `executable_dir`
 - provides a simpler API than directories-rs
-- allow for using XDG on macOS for cli apps
-- changes some of the app directory path locations on Windows and macOS
-    - `Library/Preferences` -> `Library/Application Support`
-        - `Library/Preferences` is more so used for macOS unique plist preferences: [info](https://www.reddit.com/r/rust/comments/8hbzyx/can_people_here_give_the_dirs_and_directories/dyj4qtk/)
-    - remove `data_local_dir`
+    - UserDirs' fields are no longer Options
+    - the struct fields are now publicly accessible
+    - combines the ProjectDirs struct into AppDirs
+- adds `state_dir` to AppDirs
+    - documented [here](https://wiki.debian.org/XDGBaseDirectorySpecification) at the bottom
+    - used for stateful application data like logs, history, etc
+- on Linux, returns default platforms values for the UserDirs if they are not set instead of returning None
