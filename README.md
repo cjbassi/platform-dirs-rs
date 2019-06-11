@@ -34,12 +34,10 @@ platform-dirs = "0.1.2"
 ### Displaying paths
 
 ```rust
-use std::path::PathBuf;
-
 use platform_dirs::{AppDirs, AppUI, UserDirs};
 
 fn main() {
-    let app_dirs = AppDirs::new::<PathBuf>(None, AppUI::Graphical).unwrap();
+    let app_dirs = AppDirs::new(None, AppUI::Graphical).unwrap();
     dbg!(&app_dirs);
     // AppDirs {
     //     cache_dir: "/home/cjbassi/.cache",

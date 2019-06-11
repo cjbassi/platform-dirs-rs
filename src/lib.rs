@@ -41,10 +41,7 @@ where
 }
 
 impl AppDirs {
-    pub fn new<P>(prefix: Option<P>, app_ui: AppUI) -> Option<Self>
-    where
-        P: AsRef<Path>,
-    {
+    pub fn new(prefix: Option<&str>, app_ui: AppUI) -> Option<Self> {
         if cfg!(target_os = "macos") && app_ui == AppUI::Graphical {
             if home_dir().is_some() {
                 let mut cache_dir = dirs::cache_dir().unwrap();
@@ -158,7 +155,7 @@ mod tests {
         let config_env = env::var_os("XDG_CONFIG_HOME");
 
         env::set_var("XDG_CONFIG_HOME", "");
-        let app_dirs = AppDirs::new::<PathBuf>(None, AppUI::CommandLine).unwrap();
+        let app_dirs = AppDirs::new(None, AppUI::CommandLine).unwrap();
         assert!(app_dirs.config_dir == home_dir.join(".config"));
 
         env::set_var("XDG_CONFIG_HOME", "/home/cjbassi/foo");
