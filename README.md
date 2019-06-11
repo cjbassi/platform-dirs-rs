@@ -26,7 +26,7 @@ Add the following to Cargo.toml:
 
 ```toml
 [dependencies]
-platform-dirs = "0.1.2"
+platform-dirs = "0.2.0"
 ```
 
 ## Examples
