@@ -121,19 +121,19 @@ video_dir    | `{FOLDERID_Videos}`  (`C:\Users\%USERNAME%\Videos`)       | `XDG_
 
 platform-dirs differs from [dirs-rs](https://github.com/soc/dirs-rs) and [directories-rs](https://github.com/soc/directories-rs) in several ways:
 
-- allows for using the XDG spec on macOS for cli apps
+- allows for using the XDG spec on macOS for CLI apps
 - changes the config directory on macOS from `Library/Preferences` to `Library/Application Support`
     - `Library/Preferences` is supposed to be used for macOS unique plist preferences: [info](https://www.reddit.com/r/rust/comments/8hbzyx/can_people_here_give_the_dirs_and_directories/dyj4qtk/)
 - only includes directories that are cross platform
-    - AppDirs:
+    - `AppDirs`:
         - removes `data_local_dir`
-    - UserDirs:
+    - `UserDirs`:
         - removes `runtime_dir`, `executable_dir`
 - provides a simpler API than directories-rs
-    - UserDirs' fields are no longer Options
+    - the fields of `UserDirs` are no longer `Options`
     - the struct fields are now publicly accessible
-    - combines the ProjectDirs struct into AppDirs
-- adds `state_dir` to AppDirs
-    - documented [here](https://wiki.debian.org/XDGBaseDirectorySpecification) at the bottom
+    - combines the `ProjectDirs` struct into `AppDirs`
+- adds `state_dir` to `AppDirs`
+    - documentation can be found [here](https://wiki.debian.org/XDGBaseDirectorySpecification) at the bottom of the page
     - used for stateful application data like logs, history, etc
-- on Linux, returns default platforms values for the UserDirs if they are not set instead of returning None
+- on Linux, returns default platforms values for the `UserDirs` if they are not set instead of returning `None`
