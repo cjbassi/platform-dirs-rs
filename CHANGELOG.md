@@ -15,23 +15,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2019-06-10
+
+### Changed
+
+- Change prefix parameter from `AsRef<Path>` to `&str`
+
 ## [0.1.2] - 2019-06-08
 
 ### Added
 
-- Derive Clone and Debug for AppDirs and UserDirs
+- Derive `Clone` and `Debug` for `AppDirs` and `UserDirs`
 
 ## [0.1.1] - 2019-06-08
 
 ### Fixed
 
-- Fixed app name prefix for AppDirs
+- Fixed app name prefix for `AppDirs`
 
 ## [0.1.0] - 2019-06-08
 
 Initial release
 
 [Unreleased]: https://github.com/cjbassi/platform-dirs-rs/compare/0.1.2...HEAD
+[0.2.0]: https://github.com/cjbassi/platform-dirs-rs/compare/0.1.2...0.2.0
 [0.1.2]: https://github.com/cjbassi/platform-dirs-rs/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/cjbassi/platform-dirs-rs/compare/0.1.0...0.1.1
 [0.1.0]: https://github.com/cjbassi/platform-dirs-rs/compare/4afc9b7218db1f2847203951ff3e1493b3d9ef38...0.1.0
