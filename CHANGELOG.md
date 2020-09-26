@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- change `AppUI` to `use_xdg_on_macos`
+
 ## [0.2.0] - 2019-06-10
 
 ### Changed

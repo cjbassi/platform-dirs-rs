@@ -3,12 +3,6 @@ use std::path::{Path, PathBuf};
 
 pub use dirs_next::home_dir;
 
-#[derive(PartialEq)]
-pub enum AppUI {
-    CommandLine,
-    Graphical,
-}
-
 #[derive(Clone, Debug)]
 pub struct AppDirs {
     pub cache_dir: PathBuf,
@@ -41,8 +35,8 @@ where
 }
 
 impl AppDirs {
-    pub fn new(prefix: Option<&str>, app_ui: AppUI) -> Option<Self> {
-        if cfg!(target_os = "macos") && app_ui == AppUI::Graphical {
+    pub fn new(prefix: Option<&str>, use_xdg_on_macos: bool) -> Option<Self> {
+        if cfg!(target_os = "macos") && !use_xdg_on_macos {
             if home_dir().is_some() {
                 let mut cache_dir = dirs_next::cache_dir().unwrap();
                 let mut data_dir = dirs_next::data_dir().unwrap();
