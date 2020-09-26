@@ -19,6 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - change `AppUI` to `use_xdg_on_macos`
 
+### Removed
+
+- remove `home_dir` and `is_absolute_path` from public API
+
 ## [0.2.0] - 2019-06-10
 
 ### Changed

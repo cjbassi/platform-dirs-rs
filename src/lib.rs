@@ -1,7 +1,7 @@
 use std::env;
 use std::path::{Path, PathBuf};
 
-pub use dirs_next::home_dir;
+use dirs_next::home_dir;
 
 #[derive(Clone, Debug)]
 pub struct AppDirs {
@@ -22,11 +22,9 @@ pub struct UserDirs {
     pub video_dir: PathBuf,
 }
 
-pub fn is_absolute_path<P>(path: P) -> Option<PathBuf>
-where
-    P: AsRef<Path>,
-{
+fn is_absolute_path(path: impl AsRef<Path>) -> Option<PathBuf> {
     let path = path.as_ref();
+
     if path.is_absolute() {
         Some(path.to_path_buf())
     } else {
