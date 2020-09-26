@@ -1,22 +1,13 @@
-use platform_dirs::{AppDirs, AppUI, UserDirs};
+use platform_dirs::{AppDirs, UserDirs};
 
 fn main() {
-    let app_dirs = AppDirs::new(None, AppUI::Graphical).unwrap();
+    let app_dirs = AppDirs::new(Some("name"), false).unwrap();
     dbg!(&app_dirs);
     // AppDirs {
-    //     cache_dir: "/home/cjbassi/.cache",
-    //     config_dir: "/home/cjbassi/.config",
-    //     data_dir: "/home/cjbassi/.local/share",
-    //     state_dir: "/home/cjbassi/.local/state"
-    // }
-
-    let app_dirs = AppDirs::new(Some("program-name"), AppUI::CommandLine).unwrap();
-    dbg!(&app_dirs);
-    // AppDirs {
-    //     cache_dir: "/home/cjbassi/.cache/program-name",
-    //     config_dir: "/home/cjbassi/.config/program-name",
-    //     data_dir: "/home/cjbassi/.local/share/program-name",
-    //     state_dir: "/home/cjbassi/.local/state/program-name"
+    //     cache_dir: "/home/cjbassi/.cache/name",
+    //     config_dir: "/home/cjbassi/.config/name",
+    //     data_dir: "/home/cjbassi/.local/share/name",
+    //     state_dir: "/home/cjbassi/.local/state/name"
     // }
 
     let user_dirs = UserDirs::new().unwrap();
@@ -30,8 +21,4 @@ fn main() {
     //     public_dir: "/home/cjbassi/Public",
     //     video_dir: "/home/cjbassi/Videos"
     // }
-
-    let home_dir = platform_dirs::home_dir().unwrap();
-    dbg!(&home_dir);
-    // "/home/cjbassi"
 }

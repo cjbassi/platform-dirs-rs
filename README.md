@@ -29,10 +29,10 @@ platform-dirs = "0.2.0"
 ### Obtaining paths
 
 ```rust
-use platform_dirs::{AppDirs, AppUI, UserDirs};
+use platform_dirs::{AppDirs, UserDirs};
 
 fn main() {
-    let app_dirs = AppDirs::new(Some("name"), AppUI::CommandLine).unwrap();
+    let app_dirs = AppDirs::new(Some("name"), false).unwrap();
     dbg!(&app_dirs);
     // AppDirs {
     //     cache_dir: "/home/cjbassi/.cache/name",
@@ -60,10 +60,10 @@ fn main() {
 ```rust
 use std::fs::{self, File};
 
-use platform_dirs::{AppDirs, AppUI};
+use platform_dirs::AppDirs;
 
 fn main() {
-    let app_dirs = AppDirs::new(Some("name"), AppUI::CommandLine).unwrap();
+    let app_dirs = AppDirs::new(Some("name"), true).unwrap();
     let config_file_path = app_dirs.config_dir.join("config-file");
 
     fs::create_dir_all(&app_dirs.config_dir).unwrap();
