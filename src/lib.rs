@@ -33,15 +33,15 @@ fn is_absolute_path(path: impl AsRef<Path>) -> Option<PathBuf> {
 }
 
 impl AppDirs {
-    pub fn new(prefix: Option<&str>, use_xdg_on_macos: bool) -> Option<Self> {
+    pub fn new(name: Option<&str>, use_xdg_on_macos: bool) -> Option<Self> {
         if cfg!(target_os = "macos") && !use_xdg_on_macos {
             if home_dir().is_some() {
                 let mut cache_dir = dirs_next::cache_dir().unwrap();
                 let mut data_dir = dirs_next::data_dir().unwrap();
 
-                if let Some(prefix) = prefix {
-                    cache_dir.push(&prefix);
-                    data_dir.push(&prefix);
+                if let Some(name) = name {
+                    cache_dir.push(&name);
+                    data_dir.push(&name);
                 }
 
                 let config_dir = data_dir.clone();
@@ -66,10 +66,10 @@ impl AppDirs {
                 let mut config_dir = data_dir.clone();
                 let mut data_dir = data_local_dir.clone();
 
-                if let Some(prefix) = prefix {
-                    cache_dir.push(&prefix);
-                    config_dir.push(&prefix);
-                    data_dir.push(&prefix);
+                if let Some(name) = name {
+                    cache_dir.push(&name);
+                    config_dir.push(&name);
+                    data_dir.push(&name);
                 }
 
                 let state_dir = data_dir.clone();
@@ -97,11 +97,11 @@ impl AppDirs {
                 .and_then(is_absolute_path)
                 .unwrap_or_else(|| home_dir.join(".local/state"));
 
-            if let Some(prefix) = prefix {
-                cache_dir.push(&prefix);
-                config_dir.push(&prefix);
-                data_dir.push(&prefix);
-                state_dir.push(&prefix);
+            if let Some(name) = name {
+                cache_dir.push(&name);
+                config_dir.push(&name);
+                data_dir.push(&name);
+                state_dir.push(&name);
             }
 
             Some(AppDirs {
