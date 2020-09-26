@@ -1,7 +1,7 @@
 use std::env;
 use std::path::{Path, PathBuf};
 
-pub use dirs::home_dir;
+pub use dirs_next::home_dir;
 
 #[derive(PartialEq)]
 pub enum AppUI {
@@ -44,8 +44,8 @@ impl AppDirs {
     pub fn new(prefix: Option<&str>, app_ui: AppUI) -> Option<Self> {
         if cfg!(target_os = "macos") && app_ui == AppUI::Graphical {
             if home_dir().is_some() {
-                let mut cache_dir = dirs::cache_dir().unwrap();
-                let mut data_dir = dirs::data_dir().unwrap();
+                let mut cache_dir = dirs_next::cache_dir().unwrap();
+                let mut data_dir = dirs_next::data_dir().unwrap();
 
                 if let Some(prefix) = prefix {
                     cache_dir.push(&prefix);
@@ -65,9 +65,11 @@ impl AppDirs {
                 None
             }
         } else if cfg!(target_os = "windows") {
-            if let (Some(_home_dir), Some(data_dir), Some(data_local_dir)) =
-                (home_dir(), dirs::data_dir(), dirs::data_local_dir())
-            {
+            if let (Some(_home_dir), Some(data_dir), Some(data_local_dir)) = (
+                home_dir(),
+                dirs_next::data_dir(),
+                dirs_next::data_local_dir(),
+            ) {
                 let mut cache_dir = data_local_dir.clone();
                 let mut config_dir = data_dir.clone();
                 let mut data_dir = data_local_dir.clone();
@@ -126,13 +128,15 @@ impl UserDirs {
     pub fn new() -> Option<Self> {
         if let Some(home_dir) = home_dir() {
             Some(UserDirs {
-                desktop_dir: dirs::desktop_dir().unwrap_or_else(|| home_dir.join("Desktop")),
-                document_dir: dirs::document_dir().unwrap_or_else(|| home_dir.join("Documents")),
-                download_dir: dirs::download_dir().unwrap_or_else(|| home_dir.join("Downloads")),
-                music_dir: dirs::audio_dir().unwrap_or_else(|| home_dir.join("Music")),
-                picture_dir: dirs::picture_dir().unwrap_or_else(|| home_dir.join("Pictures")),
-                public_dir: dirs::public_dir().unwrap_or_else(|| home_dir.join("Public")),
-                video_dir: dirs::video_dir().unwrap_or_else(|| {
+                desktop_dir: dirs_next::desktop_dir().unwrap_or_else(|| home_dir.join("Desktop")),
+                document_dir: dirs_next::document_dir()
+                    .unwrap_or_else(|| home_dir.join("Documents")),
+                download_dir: dirs_next::download_dir()
+                    .unwrap_or_else(|| home_dir.join("Downloads")),
+                music_dir: dirs_next::audio_dir().unwrap_or_else(|| home_dir.join("Music")),
+                picture_dir: dirs_next::picture_dir().unwrap_or_else(|| home_dir.join("Pictures")),
+                public_dir: dirs_next::public_dir().unwrap_or_else(|| home_dir.join("Public")),
+                video_dir: dirs_next::video_dir().unwrap_or_else(|| {
                     if cfg!(target_os = "macos") {
                         home_dir.join("Movies")
                     } else {

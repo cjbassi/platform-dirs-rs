@@ -9,4 +9,4 @@ repository  = "https://github.com/cjbassi/platform-dirs-rs"
 edition = "2018"
 
 [dependencies]
-dirs = "2.0.1"
+dirs-next = "1.0.1"
