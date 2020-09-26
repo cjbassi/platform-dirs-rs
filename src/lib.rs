@@ -36,8 +36,8 @@ impl AppDirs {
     pub fn new(name: Option<&str>, use_xdg_on_macos: bool) -> Option<Self> {
         if cfg!(target_os = "macos") && !use_xdg_on_macos {
             if home_dir().is_some() {
-                let mut cache_dir = dirs_next::cache_dir().unwrap();
-                let mut data_dir = dirs_next::data_dir().unwrap();
+                let mut cache_dir = dirs_next::cache_dir().expect("home directory is set");
+                let mut data_dir = dirs_next::data_dir().expect("home directory is set");
 
                 if let Some(name) = name {
                     cache_dir.push(&name);
