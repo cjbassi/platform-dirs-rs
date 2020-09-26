@@ -57,6 +57,7 @@ impl AppDirs {
                 None
             }
         } else if cfg!(target_os = "windows") {
+            // TODO document why we need to check data_dir and data_local_dir
             if let (Some(_home_dir), Some(data_dir), Some(data_local_dir)) = (
                 home_dir(),
                 dirs_next::data_dir(),
