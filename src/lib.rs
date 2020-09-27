@@ -40,8 +40,8 @@ impl AppDirs {
                 let mut data_dir = dirs_next::data_dir().expect("home directory is set");
 
                 if let Some(name) = name {
-                    cache_dir.push(&name);
-                    data_dir.push(&name);
+                    cache_dir.push(name);
+                    data_dir.push(name);
                 }
 
                 let config_dir = data_dir.clone();
@@ -68,9 +68,9 @@ impl AppDirs {
                 let mut data_dir = data_local_dir.clone();
 
                 if let Some(name) = name {
-                    cache_dir.push(&name);
-                    config_dir.push(&name);
-                    data_dir.push(&name);
+                    cache_dir.push(name);
+                    config_dir.push(name);
+                    data_dir.push(name);
                 }
 
                 let state_dir = data_dir.clone();
@@ -99,10 +99,10 @@ impl AppDirs {
                 .unwrap_or_else(|| home_dir.join(".local/state"));
 
             if let Some(name) = name {
-                cache_dir.push(&name);
-                config_dir.push(&name);
-                data_dir.push(&name);
-                state_dir.push(&name);
+                cache_dir.push(name);
+                config_dir.push(name);
+                data_dir.push(name);
+                state_dir.push(name);
             }
 
             Some(AppDirs {
