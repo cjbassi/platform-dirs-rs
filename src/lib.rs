@@ -33,6 +33,14 @@ fn is_absolute_path(path: impl AsRef<Path>) -> Option<PathBuf> {
 }
 
 impl AppDirs {
+    /// The return value is `None` when the home dir is not set.
+    ///
+    /// # Arguments
+    ///
+    /// * `name` - An optional string slice appended to the app dir paths if provided.
+    /// * `use_xdg_on_macos` - Use the XDG or Linux directory specification on macOS if enabled.
+    ///   This is useful for non-GUI apps on macOS which usually follow the Linux directory
+    ///   specification instead of the standard macOS spec.
     pub fn new(name: Option<&str>, use_xdg_on_macos: bool) -> Option<Self> {
         if cfg!(target_os = "macos") && !use_xdg_on_macos {
             if home_dir().is_some() {
@@ -118,6 +126,7 @@ impl AppDirs {
 }
 
 impl UserDirs {
+    /// The return value is `None` when the home dir is not set.
     pub fn new() -> Option<Self> {
         if let Some(home_dir) = home_dir() {
             Some(UserDirs {
