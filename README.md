@@ -119,3 +119,7 @@ platform-dirs differs from [dirs-rs](https://github.com/soc/dirs-rs) and [direct
     - documentation can be found [here](https://wiki.debian.org/XDGBaseDirectorySpecification) at the bottom of the page
     - used for stateful application data like logs, history, etc
 - on Linux, returns default platforms values for the `UserDirs` if they are not set instead of returning `None`
+
+## Related projects
+
+- [etcetera](https://github.com/arzg/etcetera)
